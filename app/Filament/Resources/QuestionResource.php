@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SupportResource\Pages;
-use App\Models\Support;
+use App\Filament\Resources\QuestionResource\Pages;
+use App\Models\Question;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class SupportResource extends Resource
+class QuestionResource extends Resource
 {
-    protected static ?string $model = Support::class;
+    protected static ?string $model = Question::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -28,10 +28,9 @@ class SupportResource extends Resource
                 Forms\Components\TextInput::make('question')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('response')
+                Forms\Components\Textarea::make('answer')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('meta'),
             ]);
     }
 
@@ -41,7 +40,7 @@ class SupportResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('question')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('response')
+                Tables\Columns\TextColumn::make('answer')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -75,9 +74,9 @@ class SupportResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSupports::route('/'),
-            'create' => Pages\CreateSupport::route('/create'),
-            'edit' => Pages\EditSupport::route('/{record}/edit'),
+            'index' => Pages\ListQuestions::route('/'),
+            'create' => Pages\CreateQuestion::route('/create'),
+            'edit' => Pages\EditQuestion::route('/{record}/edit'),
         ];
     }
 }

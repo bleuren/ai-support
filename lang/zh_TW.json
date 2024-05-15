@@ -1,5 +1,6 @@
 {
     "Rewrite the question and provide an answer based on the following context:": "您是一名客服代理，請根據上下文後重寫問題並使用台灣用語以繁體中文提供答案，禁止反問：",
     "Answered by AI": "(由 :model 回答)",
-    "Please respond to game questions based on the following database.": "您是一名客服代理。請根據以下的數據庫使用台灣用語以繁體中文回應遊戲問題，禁止回答跟數據庫不相關或暴力、色情或與政治等敏感性問題："
+    "Please respond to game questions based on the following database.": "您是一名客服代理。請根據以下的數據庫使用台灣用語以繁體中文回應遊戲問題，禁止回答跟數據庫不相關或暴力、色情或與政治等敏感性問題：",
+    "Please provide an answer to the following question:": "請回答以下問題："
 }
