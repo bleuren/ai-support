@@ -76,6 +76,12 @@ class Team extends JetstreamTeam
                 'value' => __('Please respond to game questions based on the following database.'),
                 'description' => 'Prompt for directly answering user questions using the FAQ.',
             ]);
+
+            $team->settings()->create([
+                'key' => 'prompt_for_no_questions',
+                'value' => __('Please provide an answer to the following question:'),
+                'description' => 'Prompt for answering user questions when no FAQ is available.',
+            ]);
         });
     }
 }

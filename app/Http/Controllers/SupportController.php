@@ -35,6 +35,20 @@ class SupportController extends Controller
             return $question->question.$question->answer;
         })->toArray();
 
+        if ($questions->isEmpty()) {
+            $completionResponse = OpenAI::completions()->create([
+                'model' => 'gpt-3.5-turbo-instruct',
+                'prompt' => TeamSetting::get($team->id, 'prompt_for_no_questions')." Question: {$input} Answer:",
+                'temperature' => 0.9,
+                'max_tokens' => 200,
+            ]);
+
+            return [
+                'team_id' => $team->id,
+                'question' => $input,
+                'response' => $completionResponse->choices[0]->text.__('Answered by AI', ['model' => 'GPT3.5']),
+            ];
+        }
         $questionEmbeddings = Cache::remember("question_embeddings_{$team->id}", 3600, function () use ($questionsArray) {
             return OpenAI::embeddings()->create([
                 'model' => 'text-embedding-3-small',
