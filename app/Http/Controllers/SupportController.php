@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Support;
 use App\Models\Team;
+use App\Models\TeamSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Number;
@@ -52,7 +53,7 @@ class SupportController extends Controller
 
         if ($bestMatchIndex['similarity'] >= 0.5) {
             $bestMatchFaq = $questions[$bestMatchIndex['index']];
-            $prompt = __('Rewrite the question and provide an answer based on the following context:')." Context: {$bestMatchFaq->question}{$bestMatchFaq->answer} Question: {$input} Answer:";
+            $prompt = TeamSetting::get($team->id, 'prompt_for_match')." Context: {$bestMatchFaq->question}{$bestMatchFaq->answer} Question: {$input} Answer:";
             $completionResponse = OpenAI::completions()->create([
                 'model' => 'gpt-3.5-turbo-instruct',
                 'prompt' => $prompt,
@@ -67,7 +68,7 @@ class SupportController extends Controller
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => __('Please respond to game questions based on the following database.'),
+                        'content' => TeamSetting::get($team->id, 'prompt_for_direct'),
                     ],
                     [
                         'role' => 'system',

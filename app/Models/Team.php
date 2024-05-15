@@ -56,4 +56,26 @@ class Team extends JetstreamTeam
     {
         return $this->hasMany(Support::class);
     }
+
+    public function settings()
+    {
+        return $this->hasMany(TeamSetting::class);
+    }
+
+    public static function booted()
+    {
+        static::created(function ($team) {
+            $team->settings()->create([
+                'key' => 'prompt_for_match',
+                'value' => __('Rewrite the question and provide an answer based on the following context:'),
+                'description' => 'Prompt for mapping user questions to the FAQ and generating an answer using GPT.',
+            ]);
+
+            $team->settings()->create([
+                'key' => 'prompt_for_direct',
+                'value' => __('Please respond to game questions based on the following database.'),
+                'description' => 'Prompt for directly answering user questions using the FAQ.',
+            ]);
+        });
+    }
 }

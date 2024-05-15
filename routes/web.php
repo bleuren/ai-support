@@ -17,6 +17,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-    Route::get('/support/{team}/answer', [SupportController::class, 'answer'])->name('support.answer');
 });
+
+Route::get('/support/{team}/answer', [SupportController::class, 'answer'])->name('support.answer');
