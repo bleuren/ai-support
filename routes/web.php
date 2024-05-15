@@ -3,11 +3,8 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\SupportController;
+use App\Livewire\SupportChat;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::middleware([
     'auth:sanctum',
@@ -19,4 +16,5 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/support/{team}/answer', [SupportController::class, 'answer'])->name('support.answer');
+Route::post('/support/{team}/answer', [SupportController::class, 'answer'])->name('support.answer');
+Route::get('/{team?}', SupportChat::class);

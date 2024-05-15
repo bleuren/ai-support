@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ env('APP_NAME') }}</title>
 
@@ -35,6 +36,13 @@
                     智能客服
                 </div>
             </div>
+            <!-- Inline Editing Input -->
+            <div class="mt-4">
+                <input type="text" id="customerQuestion" placeholder="問爆我"
+                    class="w-full p-2 bg-gray-800 border border-gray-700 text-gray-300 rounded focus:outline-none focus:ring focus:border-blue-500">
+            </div>
+            <!-- Response Display -->
+            <div class="mt-4" id="responseContainer"></div>
         </div>
     </div>
     <footer class="text-center py-4">
@@ -43,6 +51,41 @@
             Designed by <a href="https://bleu.tw" class="hover:underline font-bold text-gray-400">Bleu</a>.
         </p>
     </footer>
+
+    <!-- JavaScript to handle the AJAX request -->
+    <script>
+        document.getElementById('customerQuestion').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission
+
+                let question = e.target.value;
+                let teamId = 1; // Replace with the actual team ID if needed
+
+                fetch(`/support/${teamId}/answer`, {
+                        method: 'POST', // Changed method from 'GET' to 'POST'
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            question: question
+                        }) // Changed from params to body and added JSON.stringify
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        let responseContainer = document.getElementById('responseContainer');
+                        responseContainer.innerHTML = `
+                        <div class="p-4 mt-4 bg-gray-800 border border-gray-700 rounded">
+                            <p class="text-gray-300">${data.response.response}</p>
+                        </div>
+                    `;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
 </body>
 
 </html>
