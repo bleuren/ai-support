@@ -79,4 +79,12 @@ class QuestionResource extends Resource
             'edit' => Pages\EditQuestion::route('/{record}/edit'),
         ];
     }
+
+    public static function getModelLabel(): string
+    {
+        $model = (string) str(class_basename(static::getModel()))
+            ->headline();
+
+        return __($model);
+    }
 }

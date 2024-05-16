@@ -80,4 +80,12 @@ class SupportResource extends Resource
             'edit' => Pages\EditSupport::route('/{record}/edit'),
         ];
     }
+
+    public static function getModelLabel(): string
+    {
+        $model = (string) str(class_basename(static::getModel()))
+            ->headline();
+
+        return __($model);
+    }
 }
