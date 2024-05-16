@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->withPersonalTeam()->create([
+        $user = User::factory()->withPersonalTeam()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
             ShieldSeeder::class,
             QuestionSeeder::class,
         ]);
+
+        $user->assignRole('super_admin');
     }
 }

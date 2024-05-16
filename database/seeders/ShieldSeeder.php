@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Database\Seeders;
 
-use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Database\Seeder;
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Spatie\Permission\PermissionRegistrar;
 
 class ShieldSeeder extends Seeder
@@ -14,7 +12,7 @@ class ShieldSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $rolesWithPermissions = '[{"name":"super_admin","guard_name":"web","permissions":["view_role","view_any_role","create_role","update_role","delete_role","delete_any_role"]},{"name":"panel_user","guard_name":"web","permissions":[]}]';
+        $rolesWithPermissions = '[{"name":"super_admin","guard_name":"web","permissions":["view_question","view_any_question","create_question","update_question","restore_question","restore_any_question","replicate_question","reorder_question","delete_question","delete_any_question","force_delete_question","force_delete_any_question","view_role","view_any_role","create_role","update_role","delete_role","delete_any_role","view_support","view_any_support","create_support","update_support","restore_support","restore_any_support","replicate_support","reorder_support","delete_support","delete_any_support","force_delete_support","force_delete_any_support","view_team::setting","view_any_team::setting","create_team::setting","update_team::setting","restore_team::setting","restore_any_team::setting","replicate_team::setting","reorder_team::setting","delete_team::setting","delete_any_team::setting","force_delete_team::setting","force_delete_any_team::setting","view_user","view_any_user","create_user","update_user","restore_user","restore_any_user","replicate_user","reorder_user","delete_user","delete_any_user","force_delete_user","force_delete_any_user"]},{"name":"panel_user","guard_name":"web","permissions":[]}]';
         $directPermissions = '[]';
 
         static::makeRolesWithPermissions($rolesWithPermissions);
