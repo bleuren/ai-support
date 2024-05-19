@@ -24,15 +24,9 @@ class Question extends Model
         return $this->belongsTo(Team::class);
     }
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
-
-        static::created(function ($question) {
-            self::clearCache($question->team_id);
-        });
-
-        static::updated(function ($question) {
+        static::saved(function ($question) {
             self::clearCache($question->team_id);
         });
 
