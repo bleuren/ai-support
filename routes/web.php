@@ -16,5 +16,5 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::post('/support/{team}/answer', [SupportController::class, 'answer'])->name('support.answer');
+Route::any('/support/{team}/answer', [SupportController::class, 'answer'])->name('support.answer');
 Route::get('/{team?}', SupportChat::class);

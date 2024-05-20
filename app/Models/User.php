@@ -87,9 +87,4 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     {
         return $this->ownsTeam($tenant);
     }
-
-    // public function team(): ?Model
-    // {
-    //     return $this->currentTeam;
-    // }
 }

@@ -82,6 +82,12 @@ class Team extends JetstreamTeam
                 'value' => __('Please provide an answer to the following question:'),
                 'description' => 'Prompt for answering user questions when no FAQ is available.',
             ]);
+
+            $team->settings()->create([
+                'key' => 'webhook_url',
+                'value' => '',
+                'description' => 'The URL to send webhook events to.',
+            ]);
         });
     }
 }
