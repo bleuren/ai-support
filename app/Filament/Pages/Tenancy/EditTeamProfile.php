@@ -29,4 +29,9 @@ class EditTeamProfile extends EditTenantProfile
                     }),
             ]);
     }
+
+    protected function getRedirectUrl(): ?string
+    {
+        return self::getUrl();
+    }
 }

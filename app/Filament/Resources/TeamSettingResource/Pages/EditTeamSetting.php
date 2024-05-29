@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\TeamSettingResource\Pages;
 
 use App\Filament\Resources\TeamSettingResource;
@@ -9,6 +11,11 @@ use Filament\Resources\Pages\EditRecord;
 class EditTeamSetting extends EditRecord
 {
     protected static string $resource = TeamSettingResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->previousUrl ?? $this->getResource()::getUrl('index');
+    }
 
     protected function getHeaderActions(): array
     {

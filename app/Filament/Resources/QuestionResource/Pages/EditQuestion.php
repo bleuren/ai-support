@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\QuestionResource\Pages;
 
 use App\Filament\Resources\QuestionResource;
@@ -15,5 +17,10 @@ class EditQuestion extends EditRecord
         return [
             Actions\DeleteAction::make(),
         ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->previousUrl ?? $this->getResource()::getUrl('index');
     }
 }
