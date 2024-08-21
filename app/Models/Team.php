@@ -88,6 +88,12 @@ class Team extends JetstreamTeam
                 'value' => '',
                 'description' => 'The URL to send webhook events to.',
             ]);
+
+            $team->settings()->create([
+                'key' => 'debug_mode',
+                'value' => false,
+                'description' => 'Whether to enable debug mode for the team.',
+            ]);
         });
     }
 }

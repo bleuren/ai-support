@@ -40,10 +40,16 @@ class SupportService
                 'max_tokens' => 200,
             ]);
 
+            $response = $completionResponse->choices[0]->text;
+
+            if (TeamSetting::get($team->id, 'debug_mode')) {
+                $response .= __('Answered by AI', ['model' => 'GPT3.5']);
+            }
+
             return [
                 'team_id' => $team->id,
                 'question' => $input,
-                'response' => $completionResponse->choices[0]->text.__('Answered by AI', ['model' => 'GPT3.5']),
+                'response' => $response,
             ];
         }
 
@@ -73,7 +79,11 @@ class SupportService
                 'max_tokens' => 200,
             ]);
 
-            $response = $completionResponse->choices[0]->text.__('Answered by AI', ['model' => 'GPT3.5[id: '.($bestMatchIndex['index'] + 1).', similarity: '.Number::percentage($bestMatchIndex['similarity'] * 100, 2).']']);
+            $response = $completionResponse->choices[0]->text;
+
+            if (TeamSetting::get($team->id, 'debug_mode')) {
+                $response .= __('Answered by AI', ['model' => 'GPT3.5[id: '.($bestMatchIndex['index'] + 1).', similarity: '.Number::percentage($bestMatchIndex['similarity'] * 100, 2).']']);
+            }
         } else {
             $completionResponse = OpenAI::chat()->create([
                 'model' => 'gpt-4o',
@@ -92,7 +102,11 @@ class SupportService
                     ],
                 ],
             ]);
-            $response = $completionResponse->choices[0]->message->content.__('Answered by AI', ['model' => 'GPT4']);
+            $response = $completionResponse->choices[0]->message->content;
+
+            if (TeamSetting::get($team->id, 'debug_mode')) {
+                $response .= __('Answered by AI', ['model' => 'GPT3.5']);
+            }
         }
 
         return [
